@@ -514,10 +514,17 @@ class person{
 
 <!-- lec 27 -->
 # getter setter
+- used for adding validations to the code
 [Readmore]-https://www.typescripttutorial.net/typescript-tutorial/typescript-getters-setters/
 - getter and setter are used to control access and modfication of object properties
+- To put the validation in the code that what you can pass or what not..
+- The [setter] [method] allows you to set the values of the properties with additional logic and validation 
+- The [getter] method sets some restriction for the access of the properties
+- when you are using the set and get method treat them as properties not methods while accessing and asssgning value
+
+Example-
 - class Person {
-  //make all the propereties first private so no access outside
+  //make all the propereties first private so no access outside the class then write validation using public 
   private _age: number;
   private _firstName: string;
   private _lastName: string;
@@ -532,7 +539,6 @@ class person{
   public get age() {
     return this._age;
   }
-
 // setter method to set the age after cheching some conditions and make it public 
   public set age(theAge: number) {
     if (theAge <= 0 || theAge >= 200) {
@@ -546,3 +552,65 @@ class person{
   }
 }
  
+Example2- 
+class GetterSetter{
+    constructor(private name:string ,private _age:number,private hobbies:string[]){}
+
+    public set age(age:number){
+       if(age>100 || age<0){
+        throw new Error("Enter valid age")
+       }
+       else {
+        this._age = age
+       }
+    }
+
+    public get age(){
+        if(this._age ===  undefined){
+           throw new Error("age is not undefined")
+        }
+        return this._age
+    }
+    
+    public giveintro():string{
+        return `Hey my name is ${this.name} , my age is ${this.age} and my hobbies are ${this.hobbies.join(",")} and more`
+    }
+}
+const selfintro = new GetterSetter("anand",34,["developmet","programming"]);
+console.log(selfintro.giveintro());
+selfintro.age  = 56
+console.log(selfintro.age);
+
+<!-- lec 29 Static Properties and methods  -->
+- A static property or method belongs to the class itself, not to the instances of the class.
+This means all instances access the same value of a static property, but technically, they don't own it—only the class does.
+
+class Counter {
+  static count = 0;
+  constructor() {
+    Counter.count++;
+  }
+  static getCount() {
+    return Counter.count;
+  }
+}
+const a = new Counter();
+const b = new Counter();
+const c = new Counter();
+console.log(Counter.getCount()); // Output: 3
+- Even though we created three instances, the static count is not duplicated in each instance—there's only one count shared by all, and it belongs to the class.
+- Static properties are not accessible using this inside instance methods (unless you do ClassName.property)
+- While using static keyword you don't need to create new instance of the class you can directly access the properties of the class using class name
+
+exmple - 
+class Hero{
+    public static headcount:number = 0;
+    constructor(){
+        Hero.headcount++;
+    }
+  public getcount():number{
+    return Hero.headcount;
+  }
+}
+// hey you dont need to make the instances to access the properties named after static
+console.log(Hero.headcount);

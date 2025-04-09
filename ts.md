@@ -670,4 +670,22 @@ let emp: Person = new Employee("James", 100);
 emp.display(); //James
 
  <!- lec31 types vs interface --> 
-- 
+- Interface can extends other interfaces 
+- You can use intersection and union in types but not during making an inteerface
+
+<!-- lec 32 Typesafety or typenarrowing in typescript -->
+- [Typeof] guard in ts lets you narrowDown the type of variable based on its runtime value. Tn typescript type narrowing allows you to write type safety code by ensuring you only operate on correct type under certain circumtances.This is particularly useful with union types and generic types
+
+Example
+const favplayers = (players :string | string[])=>
+{
+    if(typeof players === 'object' || Array.isArray(players) )
+    {
+          players.map((player)=>{console.log(player)})
+    }
+    else{
+        return `this is the only player i like : ${players}`
+    }
+}
+favplayers(["Ronaldo","Mausi"]);
+console.log(favplayers("virat kolhi"))

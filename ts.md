@@ -448,6 +448,7 @@ console.log(p.describe());   // This is John Doe.
 - A class can reuse the properties and methods of another class. This is called inheritance in TypeScript.
 - The class which inherits properties and methods is called the [child] class. The class whose properties and methods are inherited is known as the   class. These names come from the nature that children inherit genes from their [parents].
 - Suppose you have the following Person class:
+
 class Person {
   constructor(private firstName: string, private lastName: string) {}
   getFullName(): string {
@@ -614,3 +615,59 @@ class Hero{
 }
 // hey you dont need to make the instances to access the properties named after static
 console.log(Hero.headcount);
+
+<!-- lec 30 Abstract class -->
+- Properties and methods defined in this class can be accessed in other derived classes and we cannot create instances of the abstarct class
+- All the abstract methods and properties must be defined in the derived classes
+- you can use abstract type fucntion to make it mandatery for every other dervied class to include some properties and methods
+
+// abstract class with Abstract methods
+abstract class Person {
+    name: string;
+    constructor(name: string) {
+        this.name = name;
+    }
+    display(): void{
+        console.log(this.name);
+    }
+    abstract find(string): Person;
+}
+class Employee extends Person { 
+    empCode: number;   
+    constructor(name: string, code: number) { 
+        super(name); // must call super()
+        this.empCode = code;
+    }
+    find(name:string): Person { 
+        // execute AJAX request to find an employee from a db
+        return new Employee(name, 1);
+    }
+}
+let emp: Person = new Employee("James", 100);
+emp.display(); //James
+let emp2: Person = emp.find('Steve');
+let emp2: Person = emp.find('Steve');
+
+- In the above example, Person is an abstract class which includes one property and two methods, one of which is declared as abstract. The find() method is an abstract method and so must be defined in the derived class. The Employee class derives from the Person class and so it must define the find() method as abstract. The Employee class must implement all the abstract methods of the Person class, otherwise the compiler will show an error.
+
+// abstarct class can also include abstract properties
+abstract class Person {
+    abstract name: string;
+    display(): void{
+        console.log(this.name);
+    }
+}
+class Employee extends Person { 
+    name: string;
+    empCode: number;
+    constructor(name: string, code: number) { 
+        super(); // must call super()       
+        this.empCode = code;
+        this.name = name;
+    }
+}
+let emp: Person = new Employee("James", 100);
+emp.display(); //James
+
+ <!- lec31 types vs interface --> 
+- 
